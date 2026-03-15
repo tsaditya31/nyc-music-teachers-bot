@@ -1,8 +1,5 @@
-[phases.setup]
-nixPkgs = ["...", "chromium", "xorg.libX11", "xorg.libXcomposite", "xorg.libXdamage", "xorg.libXext", "xorg.libXfixes", "xorg.libXrandr", "nss", "nspr", "atk", "cups", "dbus", "at-spi2-atk", "pango", "cairo", "gdk-pixbuf", "glib", "gtk3", "alsa-lib", "mesa"]
-
 [phases.install]
-cmds = ["...", "playwright install chromium"]
+cmds = ["...", "playwright install --with-deps chromium"]
 
 [start]
 cmd = "python main.py"

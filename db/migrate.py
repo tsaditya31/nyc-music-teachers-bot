@@ -22,6 +22,19 @@ async def run_migrations():
         await conn.execute(schema_sql)
         print("Schema created/verified.")
 
+        # Migration: widen sources status check constraint
+        await conn.execute("""
+            DO $$
+            BEGIN
+                ALTER TABLE sources DROP CONSTRAINT IF EXISTS sources_status_check;
+                ALTER TABLE sources ADD CONSTRAINT sources_status_check
+                    CHECK (status IN ('pending', 'active', 'paused', 'failed', 'rejected', 'blocked', 'error'));
+            EXCEPTION WHEN undefined_table THEN
+                NULL;
+            END $$;
+        """)
+        print("Migrations applied.")
+
         # Seed neighborhoods
         data_path = os.path.join(
             os.path.dirname(os.path.dirname(__file__)), "data", "nyc_neighborhoods.json"
