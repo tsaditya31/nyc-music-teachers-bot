@@ -90,6 +90,8 @@ async def main():
     app = build_application()
     async with app:
         await app.initialize()
+        # Clear any stale webhook/polling from previous instance
+        await app.bot.delete_webhook(drop_pending_updates=True)
         await app.start()
         await app.updater.start_polling(drop_pending_updates=True)
         logger.info("Bot is running. Press Ctrl+C to stop.")
