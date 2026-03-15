@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS sources (
     url             TEXT NOT NULL UNIQUE,
     name            TEXT,
     status          TEXT NOT NULL DEFAULT 'pending'
-                    CHECK (status IN ('pending', 'active', 'paused', 'failed', 'rejected', 'blocked', 'error')),
+                    CHECK (status IN ('pending', 'active', 'paused', 'failed', 'rejected', 'blocked', 'error', 'inactive')),
     reliability_score REAL DEFAULT 0.5,
     discovered_by   TEXT NOT NULL DEFAULT 'seed'
                     CHECK (discovered_by IN ('seed', 'agent')),

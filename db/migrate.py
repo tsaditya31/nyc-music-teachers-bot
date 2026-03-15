@@ -28,7 +28,7 @@ async def run_migrations():
             BEGIN
                 ALTER TABLE sources DROP CONSTRAINT IF EXISTS sources_status_check;
                 ALTER TABLE sources ADD CONSTRAINT sources_status_check
-                    CHECK (status IN ('pending', 'active', 'paused', 'failed', 'rejected', 'blocked', 'error'));
+                    CHECK (status IN ('pending', 'active', 'paused', 'failed', 'rejected', 'blocked', 'error', 'inactive'));
             EXCEPTION WHEN undefined_table THEN
                 NULL;
             END $$;
